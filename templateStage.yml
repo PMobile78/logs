@@ -1,0 +1,27 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: An AWS Serverless Specification template describing your function.
+Resources:
+  genesisLogsStage:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      AutoPublishAlias: live
+      Handler: index.handler
+      Runtime: nodejs12.x
+      CodeUri: .
+      Description: ''
+      MemorySize: 128
+      Timeout: 30
+      Role: 'arn:aws:iam::502875221486:role/genesis-web-logs-stage'
+      VpcConfig:
+        SecurityGroupIds:
+          - sg-00025391cd3b6df30
+        SubnetIds:
+          - subnet-00bc6293ff4652e4c
+          - subnet-0907dcf29a278dbdc
+      Environment:
+        Variables:
+          Function: genesis-logs-stage
+          Project: Genesis
+          development: staging
+      Tracing: Active
